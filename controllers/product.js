@@ -19,9 +19,12 @@ export const getAllProducts = async (req, res) => {
         )
       : {};
     if (req.query.sort) {sort.updatedAt = "desc"}
+    const minPrice = req.query.minPrice ? req.query.minPrice : 1000;
+    const maxPrice = req.query.maxPrice ? req.query.maxPrice : 20000;
 
     const query = {
       name: { $regex: search, $options: "i" },
+      price: { $gte: minPrice, $lte: maxPrice }
     };
 
     if (categoryNumber || collectionNumber) {
@@ -104,4 +107,3 @@ export const importAllProducts = async (req, res) => {
     });
   }
 };
-
