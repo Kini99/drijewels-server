@@ -31,9 +31,30 @@ import {
   getSubscriberById,
 } from "../../controllers/subscriber.js";
 
+import { createUserRoles, getAllUsers, updateUserById, deleteUserById } from "../../controllers/admin.js";
+
 const authRouter = express.Router();
 
-authRouter.get("/", (req, res) => res.send("working admin route"));
+authRouter.get("/", (req, res) => {
+  if(req.isAuthenticated()) {
+    res.send("You are on the admin site")
+  } else {
+    res.send("you do not have access")
+  }
+});
+
+authRouter.post('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.redirect('/v1');
+    return 0;
+  });
+});
+
+authRouter.get('/users', getAllUsers);
+authRouter.post('/users', createUserRoles);
+authRouter.put('/users/:id', updateUserById);
+authRouter.delete('/users/:id', deleteUserById);
 
 authRouter.get("/categories", getAllCategories);
 authRouter.get("/categories/:id", getCategoryById);

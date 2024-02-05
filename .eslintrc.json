@@ -12,6 +12,7 @@
     "no-unused-vars": 0,
     "no-console": "warn",
     "import/extensions": 0,
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0
   }
 }

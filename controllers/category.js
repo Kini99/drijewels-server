@@ -27,38 +27,38 @@ export const getCategoryById = async (req, res) => {
 };
 
 export const createCategory = async (req, res) => {
-  try {
-    const category = await Category.create(req.body);
-    return res.status(201).json(category);
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
+    try {
+      const category = await Category.create(req.body);
+      return res.status(201).json(category);
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
 };
 
 export const updateCategoryById = async (req, res) => {
   const {id} = req.params;
-  try {
-    const category = await Category.findOneAndUpdate({ _id: id }, req.body, {
-      new: true,
-    });
-    return res.status(200).json(category);
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
+    try {
+      const category = await Category.findOneAndUpdate({ _id: id }, req.body, {
+        new: true,
+      });
+      return res.status(200).json(category);
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
 };
 
 export const deleteCategoryById = async (req, res) => {
   const {id} = req.params;
-  try {
-    const category = await Category.findOneAndDelete({ _id: id });
-    if (category)
-      return res.status(200).json({
-        message: `Deleted category with ID: ${id}`,
+    try {
+      const category = await Category.findOneAndDelete({ _id: id });
+      if (category)
+        return res.status(200).json({
+          message: `Deleted category with ID: ${id}`,
+        });
+    } catch (error) {
+      return res.status(500).json({
+        error,
       });
-  } catch (error) {
-    return res.status(500).json({
-      error,
-    });
   }
   return 0;
 };
@@ -68,13 +68,13 @@ export const deleteCategoryById = async (req, res) => {
  */
 
 export const importAllCategories = async (req, res) => {
-  try {
-    const categories = await Category.insertMany(allCategories);
-    return res.status(200).json(categories);
-  } catch (error) {
-    return res.status(500).json({
-      error,
-    });
-  }
+    try {
+      const categories = await Category.insertMany(allCategories);
+      return res.status(200).json(categories);
+    } catch (error) {
+      return res.status(500).json({
+        error,
+      });
+    }
 };
-// importAllCategories();
+// importAllCategories()
