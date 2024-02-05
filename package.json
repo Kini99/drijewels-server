@@ -10,7 +10,8 @@
     "prettier": "prettier . --ignore-path .gitignore",
     "format:check": "npm run prettier -- --check",
     "format:fix": "npm run prettier -- --write",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "build":"npm i"
   },
   "lint-staged": {
     "src/**/*.+(js)": [
