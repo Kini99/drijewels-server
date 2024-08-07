@@ -1,60 +1,74 @@
 import express from "express";
 import {
   createCategory,
-  updateCategoryById,
   deleteCategoryById,
   getAllCategories,
   getCategoryById,
   importAllCategories,
+  updateCategoryById,
 } from "../../controllers/category.js";
 import {
   createCollection,
-  updateCollectionById,
   deleteCollectionById,
   getAllCollections,
   getCollectionById,
   importAllCollections,
+  updateCollectionById,
 } from "../../controllers/collection.js";
 import {
   createProduct,
-  updateProductById,
   deleteProductById,
   getAllProducts,
   getProductById,
   importAllProducts,
+  updateProductById,
 } from "../../controllers/product.js";
 import {
   createSubscriber,
-  updateSubscriberById,
   deleteSubscriberById,
   getAllSubscribers,
   getSubscriberById,
+  updateSubscriberById,
 } from "../../controllers/subscriber.js";
 
-import { createUserRoles, getAllUsers, updateUserById, deleteUserById } from "../../controllers/admin.js";
+import {
+  createUserRoles,
+  deleteUserById,
+  getAllUsers,
+  updateUserById,
+} from "../../controllers/admin.js";
+import {
+  createCharm,
+  deleteCharmById,
+  getAllCharms,
+  getCharmById,
+  updateCharmById,
+} from "../../controllers/charm.js";
 
 const authRouter = express.Router();
 
 authRouter.get("/", (req, res) => {
-  if(req.isAuthenticated()) {
-    res.send("You are on the admin site")
+  if (req.isAuthenticated()) {
+    res.send("You are on the admin site");
   } else {
-    res.send("you do not have access")
+    res.send("you do not have access");
   }
 });
 
-authRouter.post('/logout', (req, res, next) => {
+authRouter.post("/logout", (req, res, next) => {
   req.logout((err) => {
-    if (err) { return next(err); }
-    res.redirect('/v1');
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/v1");
     return 0;
   });
 });
 
-authRouter.get('/users', getAllUsers);
-authRouter.post('/users', createUserRoles);
-authRouter.put('/users/:id', updateUserById);
-authRouter.delete('/users/:id', deleteUserById);
+authRouter.get("/users", getAllUsers);
+authRouter.post("/users", createUserRoles);
+authRouter.put("/users/:id", updateUserById);
+authRouter.delete("/users/:id", deleteUserById);
 
 authRouter.get("/categories", getAllCategories);
 authRouter.get("/categories/:id", getCategoryById);
@@ -83,5 +97,11 @@ authRouter.delete("/subscribers/:id", deleteSubscriberById);
 authRouter.post("/import/categories", importAllCategories);
 authRouter.post("/import/collections", importAllCollections);
 authRouter.post("/import/products", importAllProducts);
+
+authRouter.get("/charms", getAllCharms);
+authRouter.get("/charms/:id", getCharmById);
+authRouter.post("/charms", createCharm);
+authRouter.put("/charms/:id", updateCharmById);
+authRouter.delete("/charms/:id", deleteCharmById);
 
 export default authRouter;
